@@ -1,0 +1,22 @@
+{% extends "__layout.twig" %} {% block content %} Главная страница
+<ul class="list-objects">
+  {% for object in families %}
+  <li class="object">
+    <img src="{{ object.image }}" alt="" />
+    <h3>{{ object.title }}</h3>
+  </li>
+  {% endfor %}
+</ul>
+<style>
+  .list-objects {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .object {
+    padding: 10px;
+    border: 1px #fff solid;
+  }
+</style>
+{% endblock %}

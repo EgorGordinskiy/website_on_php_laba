@@ -1,0 +1,13 @@
+{% extends "__layout.twig" %} {% block content %}
+<h1>{{ title }}</h1>
+<nav class="nav">
+  <ul class="nav__list">
+    {% for item in submenu %}
+    <li class="header__item">
+      <a class="header__link" href="{{ item.url }}">{{ item.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+{% block objectContent %} {% endblock %} {% endblock %}
