@@ -10,18 +10,28 @@
 <form class="row g-3" action="" method="POST" enctype="multipart/form-data">
   <div class="col-4">
     <label class="form-label">Название</label>
-    <input type="text" class="form-control" name="title" />
+    <input
+      type="text"
+      class="form-control"
+      name="title"
+      value="{{ object.title }}"
+    />
   </div>
   <div class="col-4">
     <label class="form-label">Краткое описание</label>
-    <input type="text" class="form-control" name="description" />
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      value="{{ object.description }}"
+    />
   </div>
   <div class="col-4">
     <label class="form-label">Тип</label>
     <select class="form-control" name="type">
-      {% for type in types %}
-      <option value="{{ type.type }}">{{ type.type }}</option>
-      {% endfor %}
+      {% for type in types %} <option value="{{
+        type.type
+      }}" {% if type.type == object.type %}selected{% endif %}>{{type.type}}</option> {% endfor %}
     </select>
   </div>
   <div class="mb-3">
@@ -34,7 +44,8 @@
       placeholder="Полное описание..."
       class="form-control"
       rows="5"
-    ></textarea>
+      >{{ object.info }}</textarea
+    >
   </div>
   <div class="col-12 text-end">
     <button type="submit" class="btn btn-primary">Добавить</button>

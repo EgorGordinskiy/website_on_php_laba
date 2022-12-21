@@ -3,6 +3,12 @@
 class Route {
     public string $route_regexp; 
     public $controller;
+    public array $middlewareList = []; 
+
+    public function middleware(BaseMiddleware $m) : Route {
+        array_push($this->middlewareList, $m);
+        return $this;
+    }
 
     public function __construct($route_regexp, $controller)
     {
@@ -26,9 +32,13 @@ class Router {
         $this->pdo = $pdo;
     }
 
-    public function add($route_regexp, $controller) {
-       
-        array_push($this->routes, new Route("#^$route_regexp$#", $controller));
+     public function add($route_regexp, $controller) : Route {
+        // создаем экземпляр маршрута
+        $route = new Route("#^$route_regexp$#", $controller);
+        array_push($this->routes, $route);
+        
+        // возвращаем как результат функции
+        return $route;
     }
 
     public function get_or_default($default_controller) {
@@ -38,15 +48,13 @@ class Router {
         // print_r($_GET);
         // echo "</pre>";
         $controller = $default_controller;
-
+        $newRoute = null;
         $matches = [];
      
         foreach($this->routes as $route) {
-            
             if (preg_match($route->route_regexp, $path, $matches)) {
-                
                 $controller = $route->controller;
-               
+                $newRoute = $route; // загоняем соответствующий url маршрут в переменную
                 break;
             }
         }
@@ -58,7 +66,11 @@ class Router {
         if ($controllerInstance instanceof TwigBaseController) {
         $controllerInstance->setTwig($this->twig);
         }
-
+        if ($newRoute) {
+            foreach ($newRoute->middlewareList as $m) {
+                $m->apply($controllerInstance, []);
+            }
+        }
     return $controllerInstance->process_response();
     }
 }

@@ -24,6 +24,7 @@
         require_once "../controllers/TypeCreateController.php";
         require_once "../controllers/ObjectDeleteController.php";
         require_once "../controllers/ObjectUpdateController.php";
+        require_once "../middlewares/LoginRequiredMiddlewares.php";
 
 
 
@@ -41,10 +42,14 @@
         $router->add("/", MainController::class);
         $router->add("/object/(?P<id>.*)", ObjectController::class); 
         $router->add("/search", SearchController::class);
-        $router->add("/create", ObjectCreateController::class);
-        $router->add("/type/create", TypeCreateController::class);
-        $router->add("/(?P<id>\d+)/delete", ObjectDeleteController::class);
-        $router->add("/(?P<id>\d+)/edit", ObjectUpdateController::class);
+        $router->add("/create", ObjectCreateController::class)
+                ->middleware(new LoginRequiredMiddeware());
+        $router->add("/type/create", TypeCreateController::class)
+                ->middleware(new LoginRequiredMiddeware());
+        $router->add("/(?P<id>\d+)/delete", ObjectDeleteController::class)
+                ->middleware(new LoginRequiredMiddeware());
+        $router->add("/(?P<id>\d+)/edit", ObjectUpdateController::class)
+                ->middleware(new LoginRequiredMiddeware());
         
         $router->get_or_default(Controller404::class);
      ?>
