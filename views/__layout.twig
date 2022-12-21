@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,20 +10,41 @@
     <header class="header">
       <div class="conteiner">
         <div class="header__inner">
-          <a href="#" class="header__logo"
+          <a href="/" class="header__logo"
             ><img class="header__logo-img" src="/images/logo.svg"
           /></a>
           <nav class="header__nav">
             <ul class="header__list">
-              {% for item in menu %}
+              {% for type in types %}
               <li class="header__item">
                 <a
-                  class="header__link {{ title == item.title ? 'active' }}"
-                  href="{{ item.url }}"
-                  >{{ item.title }}</a
+                  class="header__link {{ title == type.type ? 'active' }}"
+                  href="/?type={{ type.type }}"
+                  >{{ type.type | title }}</a
                 >
               </li>
               {% endfor %}
+              <li class="header__item">
+                <a
+                  class="header__link {{ title == type.type ? 'active' }}"
+                  href="/search"
+                  >Поиск</a
+                >
+              </li>
+              <li class="header__item">
+                <a
+                  class="header__link {{ title == type.type ? 'active' }}"
+                  href="/create"
+                  >Добавить персонажа</a
+                >
+              </li>
+              <li class="header__item">
+                <a
+                  class="header__link {{ title == type.type ? 'active' }}"
+                  href="/type/create"
+                  >Добавить семью</a
+                >
+              </li>
             </ul>
           </nav>
         </div>
@@ -31,7 +52,7 @@
     </header>
     <main>
       <section>
-        <div class="conteiner">{% block content %} пустота {% endblock %}</div>
+        <div class="conteiner">{% block content %} тьма... {% endblock %}</div>
       </section>
     </main>
   </body>

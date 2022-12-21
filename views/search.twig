@@ -1,0 +1,41 @@
+{% extends "__layout.twig" %} {% block content %} Поиск
+
+<form class="">
+  <div class="row g-3">
+    <div class="col">
+      <select class="form-select" name="type">
+        <option selected value="">Все</option>
+        {% for type in types %}
+        <option value="{{ type.type }}">{{ type.type }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        placeholder="Название"
+      />
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Полное описание"
+        name="text"
+      />
+    </div>
+    <button class="btn btn-primary col-auto" type="submit">Найти</button>
+  </div>
+</form>
+
+<ul>
+  {% for obj in objs %}
+  <li>
+    <a href="/object/{{ obj.id }}">{{ obj.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+<style></style>
+{% endblock %}

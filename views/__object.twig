@@ -1,13 +1,23 @@
 {% extends "__layout.twig" %} {% block content %}
 <h1>{{ title }}</h1>
+<p>{{ description[0] }}</p>
 <nav class="nav">
   <ul class="nav__list">
-    {% for item in submenu %}
+    {# {% for item in submenu %}
     <li class="header__item">
       <a class="header__link" href="{{ item.url }}">{{ item.title }}</a>
     </li>
-    {% endfor %}
+    {% endfor %} #}
+    <li class="header__item">
+      <a class="header__link" href="/object/{{ id }}?image">Картинка</a>
+    </li>
+    <li class="header__item">
+      <a class="header__link" href="/object/{{ id }}?info">Описание</a>
+    </li>
   </ul>
 </nav>
-
-{% block objectContent %} {% endblock %} {% endblock %}
+{% if image[0]!= "" %}
+<img src="{{ image[0] }}" alt="yt" style="max-width: 600px" />
+{% elseif info[0] != "" %}
+<p>{{ info[0] }}</p>
+{% endif %} {% block objectContent %} {% endblock %} {% endblock %}

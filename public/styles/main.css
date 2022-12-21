@@ -76,12 +76,4 @@ a {
   max-width: 300px;
 }
 
-.list-objects {
-  display: flex;
-  align-items: center;
-}
-
-.object {
-  padding: 10px;
-  border: 1px #fff solid;
-}
+/* Главная стр */

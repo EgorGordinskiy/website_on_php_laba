@@ -1,0 +1,25 @@
+{% extends "__layout.twig" %} {% block content %}
+<h1>Добавление новой семьи</h1>
+<hr />
+{% if message %}
+<div class="alert alert-info">
+  {{ message }}
+  <a href="/space-object/{{ id }}"> open new type </a>
+</div>
+{% endif %}
+<form action="" enctype="multipart/form-data" method="POST" class="row g-3">
+  <div class="col">
+    <label class="form-label">Name</label>
+    <input type="text" class="form-control" name="title" />
+  </div>
+  <div class="mb">
+    <label for="formFile" class="form-label">Image</label>
+    <input class="form-control" type="file" name="image" />
+  </div>
+
+  <div class="col-12 text-end">
+    <button type="submit" class="btn btn-primary">Add</button>
+  </div>
+</form>
+
+{% endblock %}

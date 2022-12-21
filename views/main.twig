@@ -1,22 +1,83 @@
 {% extends "__layout.twig" %} {% block content %} Главная страница
 <ul class="list-objects">
   {% for object in families %}
-  <li class="object">
-    <img src="{{ object.image }}" alt="" />
-    <h3>{{ object.title }}</h3>
+  <li class="object position-relative">
+    <div class="position-absolute" style="right: 4px; top: 4px">
+      <form action="/{{ object.id }}/delete" method="POST">
+        <button type="submit" class="btn btn-danger">
+          <i class="fas fa-times"></i>
+        </button>
+      </form>
+    </div>
+    <a href="/object/{{ object.id }}">
+      <img class="object__img" src="{{ object.image }}" alt="" />
+      <h3 class="title">{{ object.title }}</h3>
+      <nav>
+        <ul class="nav-object__list">
+          <li>
+            <a class="nav-object__link" href="/object/{{ object.id }}/?image"
+              >Картинка</a
+            >
+          </li>
+          <li>
+            <a class="nav-object__link" href="/object/{{ object.id }}/?info"
+              >Описание</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </a>
   </li>
   {% endfor %}
 </ul>
 <style>
   .list-objects {
+    padding: 50px 0px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 28px;
   }
 
   .object {
-    padding: 10px;
-    border: 1px #fff solid;
+    background-color: #0d0d0d;
+    border: none;
+    border-radius: 7px;
+    text-align: center;
+    width: 270px;
+    height: 320px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding-bottom: 10px;
+  }
+
+  .object:hover {
+    box-shadow: 0px 0px 13px rgb(230, 102, 82);
+    outline: rgb(230, 102, 82) 1px solid;
+    transform: scale3d(1.2, 1.2, 1.2);
+    z-index: 99;
+  }
+
+  .object__img {
+    width: 270px;
+    height: 190px;
+    border-radius: 7px 7px 0px 0px;
+  }
+
+  .nav-object__list {
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 18px;
+  }
+
+  .nav-object__link {
+    transition: all 0.3s;
+  }
+
+  .nav-object__link:hover {
+    color: rgb(230, 102, 82);
   }
 </style>
 {% endblock %}
